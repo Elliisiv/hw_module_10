@@ -1,0 +1,16 @@
+
+]	java:S125"<This block of commented-out lines of code should be removed.(’ñŒƒøÿÿÿÿ8Ü®Õ®1
+U	java:S106"9Replace this use of System.out or System.err by a logger.(‹¢8ã®Õ®1
+X	java:S125"<This block of commented-out lines of code should be removed.(ˆÄ’€8ùáç®1
+W	java:S125 "<This block of commented-out lines of code should be removed.(å‘g8É‚è®1
+Z
+java:S1128"8Remove this unused import 'org.module_10.entity.Planet'.(èºêúÿÿÿÿ8¢è®1
+b
+java:S1128"ERemove this unused import 'org.module_10.services.PlanetCrudService'.(¨ÏÈ÷8¢è®1
+c
+java:S1128"ARemove this unused import 'org.module_10.util.DatabaseMigration'.(“‘Ğ´úÿÿÿÿ8¢è®1
+M
+java:S1128	"0Remove this unused import 'java.sql.Connection'.(¥ËôÖ8£è®1
+V
+java:S1128
+"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ8£è®1
