@@ -1,35 +1,34 @@
 package org.module_10.services;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.module_10.entity.Client;
 import org.module_10.util.HibernateUtil;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClientCrudService {
+
     public long create(Client client) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil
-                .getInstance()
-                .getSessionFactory()
-                .openSession()) {
+        try (Session session = openSession()) {
             transaction = session.beginTransaction();
             session.persist(client);
             transaction.commit();
+            return client.getId();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
+            return -1;
         }
-        return client.getId();
     }
 
     public Client getById(long id) {
-        try (Session session = HibernateUtil
-                .getInstance()
-                .getSessionFactory()
-                .openSession()) {
+        try (Session session = openSession()) {
             Query<Client> query = session.createQuery("from Client where id = :id", Client.class);
             query.setParameter("id", id);
             return query.stream().findFirst().orElse(null);
@@ -37,12 +36,28 @@ public class ClientCrudService {
         }
     }
 
+//    списку всіх сутностей
+    public List<Client> listAll() {
+    try (Session session = openSession()) {
+        return session.createQuery("from Client", Client.class).list();
+        }
+    }
+    public void update(Client client) {
+        Transaction transaction = null;
+        try (Session session = openSession()) {
+            transaction = session.beginTransaction();
+            session.update(client);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
     public void deleteById(long id) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil
-                .getInstance()
-                .getSessionFactory()
-                .openSession()) {
+        try (Session session = openSession()) {
             transaction = session.beginTransaction();
             Client client = session.get(Client.class, id);
             if (client != null) {
@@ -55,5 +70,11 @@ public class ClientCrudService {
             }
             e.printStackTrace();
         }
+    }
+    private Session openSession() {
+        return HibernateUtil
+                .getInstance()
+                .getSessionFactory()
+                .openSession();
     }
 }

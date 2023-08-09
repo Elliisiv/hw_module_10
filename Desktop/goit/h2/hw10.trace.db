@@ -1,0 +1,6 @@
+2023-08-08 15:13:58 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE Client (\000d\000a    id IDENTITY PRIMARY KEY,\000d\000a    name VARCHAR(200) NOT NULL CHECK (LENGTH(name) >= 3 AND LENGTH(name) <= 200),\000d\000a[*])"; expected "identifier"; SQL statement:
+CREATE TABLE Client (
+    id IDENTITY PRIMARY KEY,
+    name VARCHAR(200) NOT NULL CHECK (LENGTH(name) >= 3 AND LENGTH(name) <= 200),
+) [42001-212]

@@ -1,13 +1,30 @@
 package org.module_10.util;
 
 import org.flywaydb.core.Flyway;
+
+import org.hibernate.cfg.Configuration;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class DatabaseMigration  {
     public void initDb( ) {
-        Flyway flyway = Flyway
-                .configure()
-                .dataSource("jdbc:h2:/Desktop/goit/h2/10",
-                        "sa",
-                        "")
+        Properties properties = new Properties();
+        try (InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("hibernate.properties")) {
+            properties.load(resourceStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        String jdbcURL = properties.getProperty("hibernate.connection.url");
+        String jdbcUser = properties.getProperty("hibernate.connection.username");
+        String jdbcPass = properties.getProperty("hibernate.connection.password");
+
+
+        Flyway flyway = Flyway.configure()
+                .dataSource(jdbcURL,jdbcUser, jdbcPass)
                 .load();
         flyway.migrate();
     }
